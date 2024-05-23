@@ -9,6 +9,8 @@ import defaultSettings from '../config/defaultSettings';
 import { errorConfig } from './requestErrorConfig';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
+const registerPath = '/user/register';
+const whiteList = [loginPath, registerPath];
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
@@ -32,7 +34,7 @@ export async function getInitialState(): Promise<{
   };
   // 如果不是登录页面，执行
   const { location } = history;
-  if (location.pathname !== loginPath) {
+  if (!whiteList.includes(location.pathname)) {
     const currentUser = await fetchUserInfo();
     return {
       fetchUserInfo,
@@ -64,6 +66,9 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     onPageChange: () => {
       const { location } = history;
       // 如果没有登录，重定向到 login
+      if (whiteList.includes(location.pathname)) {
+        return;
+      }
       if (!initialState?.currentUser && location.pathname !== loginPath) {
         history.push(loginPath);
       }
@@ -130,8 +135,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
  * 它基于 axios 和 ahooks 的 useRequest 提供了一套统一的网络请求和错误处理方案。
  * @doc https://umijs.org/docs/max/request#配置
  */
-export const request: RequestConfig =  {
-  timeout: 10000,
-  baseURL: 'http://localhost:8080',
+export const request =  {
+  // timeout: 10000,
+  // baseURL: 'http://localhost:8080',
   ...errorConfig,
 };

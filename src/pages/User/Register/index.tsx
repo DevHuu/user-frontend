@@ -81,7 +81,7 @@ const LoginMessage: React.FC<{
     />
   );
 };
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
@@ -99,13 +99,13 @@ const Login: React.FC = () => {
   };
   const handleSubmit = async (values: API.LoginParams) => {
     try {
-      // 登录
+      // 注册
       const msg = await login({
         ...values,
         type,
       });
       if (msg.status === 'ok') {
-        const defaultLoginSuccessMessage = '登录成功！';
+        const defaultLoginSuccessMessage = '注册成功！';
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
@@ -116,7 +116,7 @@ const Login: React.FC = () => {
       // 如果失败去设置用户错误信息
       setUserLoginState(msg);
     } catch (error) {
-      const defaultLoginFailureMessage = '登录失败，请重试！';
+      const defaultLoginFailureMessage = '注册失败，请重试！';
       console.log(error);
       message.error(defaultLoginFailureMessage);
     }
@@ -126,7 +126,7 @@ const Login: React.FC = () => {
     <div className={styles.container}>
       <Helmet>
         <title>
-          {'登录'}- {Settings.title}
+          {'注册'}- {Settings.title}
         </title>
       </Helmet>
       <Lang />
@@ -158,7 +158,7 @@ const Login: React.FC = () => {
             items={[
               {
                 key: 'account',
-                label: '账户密码登录',
+                label: '账户注册',
               },
             ]}
           />
@@ -174,7 +174,7 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <UserOutlined />,
                 }}
-                placeholder={'用户名: admin or user'}
+                placeholder={'请输入用户名'}
                 rules={[
                   {
                     required: true,
@@ -188,7 +188,21 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <LockOutlined />,
                 }}
-                placeholder={'密码: ant.design'}
+                placeholder={'请输入密码'}
+                rules={[
+                  {
+                    required: true,
+                    message: '密码是必填项！',
+                  },
+                ]}
+              />
+              <ProFormText.Password
+                name="checkPassword"
+                fieldProps={{
+                  size: 'large',
+                  prefix: <LockOutlined />,
+                }}
+                placeholder={'请再次输入密码'}
                 rules={[
                   {
                     required: true,
@@ -205,16 +219,6 @@ const Login: React.FC = () => {
               marginBottom: 24,
             }}
           >
-            <ProFormCheckbox noStyle name="autoLogin">
-              自动登录
-            </ProFormCheckbox>
-            <a
-              style={{
-                float: 'right',
-              }}
-            >
-              忘记密码 ?
-            </a>
           </div>
         </LoginForm>
       </div>
@@ -222,4 +226,4 @@ const Login: React.FC = () => {
     </div>
   );
 };
-export default Login;
+export default Register;
