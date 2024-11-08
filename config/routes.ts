@@ -18,7 +18,16 @@ export default [
       { path: '/admin/sub-page', name: '二级管理页', component: './Admin' },
     ],
   },
-  { name: '查询表格', icon: 'table', path: '/list', component: './TableList' },
+  // { name: '查询表格', icon: 'table', path: '/list', component: './TableList' },
+  {
+    name: '查询表格',
+    icon: 'table',
+    path: '/list',
+    routes: [
+      { path: '/list/campaign', name: '创建计划', component: './TableList/Campaign' },
+      { path: '/list/unit', name: '创建单元', component: './TableList/Unit' },
+    ]
+  },
   { path: '/', redirect: '/welcome' },
   { path: '*', layout: false, component: './404' },
 ];

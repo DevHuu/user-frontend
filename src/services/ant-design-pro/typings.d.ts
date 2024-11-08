@@ -1,7 +1,38 @@
 // @ts-ignore
 /* eslint-disable */
 
+import {register} from "@/services/ant-design-pro/api";
+
 declare namespace API {
+
+  type ApiResponse = {
+    code?: number;
+    type?: string;
+    message?: string;
+  };
+
+  type Campaign = {
+    id?: string;
+    campaignId?: string;
+    campaignName?: string;
+    startTime?: string;
+    expireTime?: string;
+  };
+
+  type Unit = {
+    id?: string;
+    unitId?: string;
+    unitName?: string;
+    campaignId?: string;
+  };
+
+  type SearchParam = {
+    current?: number;
+    pageSize?: number;
+    unitName?: string;
+    campaignName?: string;
+  };
+
   type CurrentUser = {
     name?: string;
     avatar?: string;
@@ -28,6 +59,8 @@ declare namespace API {
     type?: string;
     currentAuthority?: string;
   };
+
+  type RegisterResult = number;
 
   type PageParams = {
     current?: number;
@@ -65,6 +98,13 @@ declare namespace API {
     userAccount?: string;
     userPassword?: string;
     autoLogin?: boolean;
+    type?: string;
+  };
+
+  type RegisterParams = {
+    userAccount?: string;
+    userPassword?: string;
+    checkPassword?: string;
     type?: string;
   };
 

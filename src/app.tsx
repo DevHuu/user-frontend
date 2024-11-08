@@ -10,7 +10,9 @@ import { errorConfig } from './requestErrorConfig';
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 const registerPath = '/user/register';
-const whiteList = [loginPath, registerPath];
+const campaignPath = '/list/campaign';
+const unitPath = '/list/unit';
+const whiteList = [loginPath, registerPath,campaignPath,unitPath];
 
 /**
  * @see  https://umijs.org/zh-CN/plugins/plugin-initial-state
